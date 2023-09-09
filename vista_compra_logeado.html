@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Vehículos</title>
+    <!-- Enlace a la hoja de estilo de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Tienda de Vehículos</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#historialModal">Historial de Compra</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#carritoModal">Ver Carrito<span id="carritoCantidad" class="badge badge-pill badge-primary ml-2">0</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Contenedor principal -->
+    <div class="container mt-5">
+        <h1 class="display-4">Catálogo de Vehículos</h1>
+
+        <!-- Lista de vehículos -->
+        <div class="row">
+            <!-- Modelo 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="vehiculo1.jpg" class="card-img-top" alt="Vehículo 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Modelo 1</h5>
+                        <p class="card-text">Precio: $20,000</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 1', 20000)">Agregar al Carro</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modelo 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="vehiculo2.jpg" class="card-img-top" alt="Vehículo 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Modelo 2</h5>
+                        <p class="card-text">Precio: $25,000</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 2', 25000)">Agregar al Carro</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modelo 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="vehiculo3.jpg" class="card-img-top" alt="Vehículo 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Modelo 3</h5>
+                        <p class="card-text">Precio: $30,000</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 3', 30000)">Agregar al Carro</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modelo 4 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="vehiculo4.jpg" class="card-img-top" alt="Vehículo 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Modelo 4</h5>
+                        <p class="card-text">Precio: $28,000</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 4', 28000)">Agregar al Carro</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modelo 5 -->
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="vehiculo5.jpg" class="card-img-top" alt="Vehículo 5">
+                    <div class="card-body">
+                        <h5 class="card-title">Modelo 5</h5>
+                        <p class="card-text">Precio: $22,000</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 5', 22000)">Agregar al Carro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nota -->
+        <div class="alert alert-info mt-4">
+            <p><strong>Nota:</strong> Al final, usted debe venir a la concesionaria ubicada en Rancagua a buscar su vehículo.</p>
+        </div>
+    </div>
+
+    <!-- Carrito de Compra Modal -->
+    <div class="modal fade" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="carritoModalLabel">Carrito de Compra</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Modelo</th>
+                                <th>Precio</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="carritoBody">
+                        </tbody>
+                    </table>
+                    <p>Total: $<span id="total">0</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="realizarCompra()">Comprar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historial de Compra Modal -->
+    <div class="modal fade" id="historialModal" tabindex="-1" role="dialog" aria-labelledby="historialModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="historialModalLabel">Historial de Compra</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>No hay registros de compras anteriores.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script para agregar vehículos al carro y realizar la compra -->
+    <script>
+        var carro = [];
+        var total = 0;
+
+        function agregarAlCarro(modelo, precio) {
+            var compraExistente = carro.find(function (elemento) {
+                return elemento.modelo === modelo;
+            });
+
+            if (compraExistente) {
+                compraExistente.cantidad++;
+                compraExistente.total += precio;
+            } else {
+                var compra = {
+                    modelo: modelo,
+                    precio: precio,
+                    cantidad: 1,
+                    total: precio
+                };
+                carro.push(compra);
+            }
+
+            total += precio;
+            actualizarCarrito();
+            alert("Se ha agregado " + modelo + " al carro de compra.");
+        }
+
+        function actualizarCarrito() {
+            var carritoBody = document.getElementById("carritoBody");
+            carritoBody.innerHTML = "";
+
+            for (var i = 0; i < carro.length; i++) {
+                var compra = carro[i];
+                var row = carritoBody.insertRow(i);
+                var modeloCell = row.insertCell(0);
+                var precioCell = row.insertCell(1);
+                var cantidadCell = row.insertCell(2);
+                var totalCell = row.insertCell(3);
+                var accionesCell = row.insertCell(4);
+
+                modeloCell.innerHTML = compra.modelo;
+                precioCell.innerHTML = "$" + compra.precio;
+                cantidadCell.innerHTML = compra.cantidad;
+                totalCell.innerHTML = "$" + compra.total;
+                accionesCell.innerHTML = '<button class="btn btn-success btn-sm" onclick="sumarCantidad(' + i + ')">Sumar</button>' +
+                    ' <button class="btn btn-danger btn-sm" onclick="eliminarCompra(' + i + ')">Eliminar</button>';
+            }
+
+            document.getElementById("total").innerText = total;
+            document.getElementById("carritoCantidad").innerText = carro.length;
+        }
+
+        function sumarCantidad(index) {
+            var compra = carro[index];
+            compra.cantidad++;
+            compra.total += compra.precio;
+            total += compra.precio;
+            actualizarCarrito();
+        }
+
+        function eliminarCompra(index) {
+            var compra = carro[index];
+            total -= compra.total;
+            carro.splice(index, 1);
+            actualizarCarrito();
+        }
+
+        function realizarCompra() {
+            if (carro.length === 0) {
+                alert("El carrito de compra está vacío.");
+            } else {
+                alert("Compra realizada por un total de $" + total + ".\n\nGracias por su compra.");
+                carro = [];
+                total = 0;
+                actualizarCarrito();
+            }
+        }
+    </script>
+
+    <!-- Scripts de Bootstrap (jQuery y Popper.js son necesarios) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
