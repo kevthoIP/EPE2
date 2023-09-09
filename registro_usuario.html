@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario</title>
+    <!-- Enlace a la hoja de estilo de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">E-Commerce Vehiculos Usados y Nuevos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="nosotros.html">Acerca de Nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="servicios.html">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contacto.html">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="registro_usuario.html">Registrate Aqui</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <h1 class="display-4">Registro de Usuario</h1>
+        
+        <!-- Formulario de registro -->
+        <form id="registroForm">
+            <div class="form-group">
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" class="form-control" id="correo" name="correo" required>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" required>
+            </div>
+            <div class="form-group">
+                <label for="empresa">Empresa (opcional):</label>
+                <input type="text" class="form-control" id="empresa" name="empresa">
+            </div>
+            <div class="form-group">
+                <label for="edad">Edad:</label>
+                <input type="number" class="form-control" id="edad" name="edad" required>
+            </div>
+            <div class="form-group">
+                <label for="sexo">Sexo (opcional):</label>
+                <select class="form-control" id="sexo" name="sexo">
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmContrasena">Confirmar Contraseña:</label>
+                <input type="password" class="form-control" id="confirmContrasena" name="confirmContrasena" required>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="registrarUsuario()">Registrar</button>
+        </form>
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="bg-dark text-light text-center py-3">
+        <p>&copy; 2023 Registro de Usuario</p>
+    </footer>
+
+    <!-- Script para mostrar el mensaje emergente -->
+    <script>
+        function registrarUsuario() {
+            var formulario = document.getElementById("registroForm");
+            var contrasena = formulario.elements["contrasena"].value;
+            var confirmContrasena = formulario.elements["confirmContrasena"].value;
+
+            if (contrasena !== confirmContrasena) {
+                alert("Las contraseñas no coinciden. Por favor, inténtelo de nuevo.");
+            } else {
+                // Aquí puedes enviar el formulario o realizar otras acciones
+                alert("Registro exitoso. ¡Bienvenido!");
+                formulario.reset();
+            }
+        }
+    </script>
+
+    <!-- Scripts de Bootstrap (jQuery y Popper.js son necesarios) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
