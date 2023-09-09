@@ -72,8 +72,8 @@
                     <img src="vehiculo4.jpg" class="card-img-top" alt="Vehículo 4">
                     <div class="card-body">
                         <h5 class="card-title">Modelo 4</h5>
-                        <p class="card-text">Precio: $28,000</p>
-                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 4', 28000)">Agregar al Carro</button>
+                        <p class="card-text">Precio: $22,000</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 4', 22000)">Agregar al Carro</button>
                     </div>
                 </div>
             </div>
@@ -84,8 +84,8 @@
                     <img src="vehiculo5.jpg" class="card-img-top" alt="Vehículo 5">
                     <div class="card-body">
                         <h5 class="card-title">Modelo 5</h5>
-                        <p class="card-text">Precio: $22,000</p>
-                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 5', 22000)">Agregar al Carro</button>
+                        <p class="card-text">Precio: $28,000</p>
+                        <button class="btn btn-primary" onclick="agregarAlCarro('Modelo 5', 28000)">Agregar al Carro</button>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
 
     <!-- Carrito de Compra Modal -->
     <div class="modal fade" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="carritoModalLabel">Carrito de Compra</h5>
@@ -113,23 +113,23 @@
                             <tr>
                                 <th>Modelo</th>
                                 <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Total</th>
-                                <th>Acciones</th>
+                                <th></th>
                             </tr>
                         </thead>
-                        <tbody id="carritoBody">
+                        <tbody id="carritoContenido">
+                            <!-- Contenido del carrito -->
                         </tbody>
                     </table>
-                    <p>Total: $<span id="total">0</span></p>
+                    <p>Total: $<span id="totalCarrito">0</span></p>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="realizarCompra()">Compra Ya</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="realizarCompra()">Comprar</button>
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Historial de Compra Modal -->
     <div class="modal fade" id="historialModal" tabindex="-1" role="dialog" aria-labelledby="historialModalLabel" aria-hidden="true">
@@ -142,91 +142,101 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>No hay registros de compras anteriores.</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Modelo</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historialContenido">
+                            <!-- Contenido del historial -->
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="generarPDFHistorial()">Generar PDF</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Script para agregar vehículos al carro y realizar la compra -->
+    <!-- Script para agregar vehículos al carro y generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
         var carro = [];
         var total = 0;
+        var historial = [];
 
         function agregarAlCarro(modelo, precio) {
-            var compraExistente = carro.find(function (elemento) {
-                return elemento.modelo === modelo;
-            });
-
-            if (compraExistente) {
-                compraExistente.cantidad++;
-                compraExistente.total += precio;
-            } else {
-                var compra = {
-                    modelo: modelo,
-                    precio: precio,
-                    cantidad: 1,
-                    total: precio
-                };
-                carro.push(compra);
-            }
-
+            carro.push({ modelo: modelo, precio: precio });
             total += precio;
+
             actualizarCarrito();
             alert("Se ha agregado " + modelo + " al carro de compra.");
         }
 
+        // Función para actualizar el contenido del carrito de compra
         function actualizarCarrito() {
-            var carritoBody = document.getElementById("carritoBody");
-            carritoBody.innerHTML = "";
+            var contenidoHTML = "";
+            var sumaTotal = 0;
 
             for (var i = 0; i < carro.length; i++) {
-                var compra = carro[i];
-                var row = carritoBody.insertRow(i);
-                var modeloCell = row.insertCell(0);
-                var precioCell = row.insertCell(1);
-                var cantidadCell = row.insertCell(2);
-                var totalCell = row.insertCell(3);
-                var accionesCell = row.insertCell(4);
-
-                modeloCell.innerHTML = compra.modelo;
-                precioCell.innerHTML = "$" + compra.precio;
-                cantidadCell.innerHTML = compra.cantidad;
-                totalCell.innerHTML = "$" + compra.total;
-                accionesCell.innerHTML = '<button class="btn btn-success btn-sm" onclick="sumarCantidad(' + i + ')">Sumar</button>' +
-                    ' <button class="btn btn-danger btn-sm" onclick="eliminarCompra(' + i + ')">Eliminar</button>';
+                var item = carro[i];
+                contenidoHTML += `
+                    <tr>
+                        <td>${item.modelo}</td>
+                        <td>$${item.precio}</td>
+                        <td><button class="btn btn-danger" onclick="eliminarDelCarro(${i})">Eliminar</button></td>
+                    </tr>
+                `;
+                sumaTotal += item.precio; // Sumar el precio del vehículo al total
             }
 
-            document.getElementById("total").innerText = total;
-            document.getElementById("carritoCantidad").innerText = carro.length;
+            document.getElementById("carritoContenido").innerHTML = contenidoHTML;
+            document.getElementById("totalCarrito").textContent = sumaTotal;
         }
 
-        function sumarCantidad(index) {
-            var compra = carro[index];
-            compra.cantidad++;
-            compra.total += compra.precio;
-            total += compra.precio;
-            actualizarCarrito();
-        }
-
-        function eliminarCompra(index) {
-            var compra = carro[index];
-            total -= compra.total;
+        // Función para eliminar un vehículo del carrito
+        function eliminarDelCarro(index) {
             carro.splice(index, 1);
             actualizarCarrito();
         }
 
-        function realizarCompra() {
+
+
+        function generarPDF() {
+            if (historial.length === 0) {
+                alert("El historial de compra está vacío.");
+            } else {
+                var doc = new jsPDF();
+                doc.text("Historial de Compra", 10, 10);
+
+                for (var i = 0; i < historial.length; i++) {
+                    var compra = historial[i];
+                    doc.text("Modelo: " + compra.modelo, 10, 20 + i * 10);
+                    doc.text("Precio: $" + compra.precio, 10, 30 + i * 10);
+                }
+
+                doc.save("historial_compra.pdf");
+            }
+        }
+
+        function generarPDFCarrito() {
             if (carro.length === 0) {
                 alert("El carrito de compra está vacío.");
             } else {
-                alert("Compra realizada por un total de $" + total + ".\n\nGracias por su compra.");
-                carro = [];
-                total = 0;
-                actualizarCarrito();
+                var doc = new jsPDF();
+                doc.text("Carrito de Compra", 10, 10);
+
+                for (var i = 0; i < carro.length; i++) {
+                    var item = carro[i];
+                    doc.text("Modelo: " + item.modelo, 10, 20 + i * 10);
+                    doc.text("Precio: $" + item.precio, 10, 30 + i * 10);
+                }
+
+                doc.text("Total: $" + total, 10, 30 + carro.length * 10);
+                doc.save("carrito_compra.pdf");
             }
         }
     </script>
@@ -237,4 +247,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
 
