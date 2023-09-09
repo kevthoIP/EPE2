@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acerca de Nosotros - Vehículos Usados y Nuevos</title>
+    <title>Acerca de Nosotros - Nuestros Servicios</title>
     <!-- Enlace a la hoja de estilo de Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Estilos para el slider -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
 </head>
 <body>
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Vehículos Usados y Nuevos</a>
+        <a class="navbar-brand" href="#">Nuestros Servicios</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,7 +28,7 @@
                     <a class="nav-link" href="acerca.html">Acerca de Nosotros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="productos.html">Productos</a>
+                    <a class="nav-link" href="servicios.html">Servicios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="contacto.html">Contacto</a>
@@ -34,22 +37,43 @@
         </div>
     </nav>
 
+    <!-- Slider de imágenes -->
+    <div class="slider-container">
+        <div class="slider">
+            <div><img src="image1.jpg" alt="Imagen 1"></div>
+            <div><img src="image2.jpg" alt="Imagen 2"></div>
+            <div><img src="image3.jpg" alt="Imagen 3"></div>
+        </div>
+    </div>
+
     <!-- Contenido principal -->
     <div class="container mt-5">
         <h1 class="display-4">Acerca de Nosotros</h1>
-        <p>Somos una empresa dedicada a la venta de vehículos nuevos y usados desde hace más de 20 años. Nuestra misión es proporcionar a nuestros clientes una amplia gama de opciones para que encuentren el vehículo perfecto que se adapte a sus necesidades y presupuesto.</p>
-        <p>Nuestro compromiso con la calidad y la satisfacción del cliente nos ha convertido en líderes del mercado de vehículos en la región. Trabajamos con los fabricantes y distribuidores más confiables para ofrecer vehículos de alta calidad a precios competitivos.</p>
-        <p>En nuestro sitio web, encontrarás una amplia variedad de vehículos, desde automóviles nuevos de última generación hasta opciones de vehículos usados certificados. Nuestra dedicada y amable equipo de ventas está aquí para ayudarte en cada paso del proceso de compra.</p>
+        <p>Somos una empresa líder en la prestación de servicios de alta calidad desde hace más de una década. Nuestra misión es satisfacer las necesidades de nuestros clientes y superar sus expectativas en cada proyecto que emprendemos.</p>
+        <p>Nuestro equipo de profesionales altamente calificados se dedica a ofrecer soluciones innovadoras y eficientes en una variedad de campos. Nos enorgullece nuestro compromiso con la excelencia y la satisfacción del cliente.</p>
+        <p>En nuestro sitio web, encontrarás información detallada sobre nuestros servicios, casos de éxito y cómo nos esforzamos por marcar la diferencia en la industria.</p>
     </div>
 
     <!-- Pie de página -->
     <footer class="bg-dark text-light text-center py-3">
-        <p>&copy; 2023 Vehículos Usados y Nuevos</p>
+        <p>&copy; 2023 Nuestros Servicios</p>
     </footer>
 
     <!-- Scripts de Bootstrap (jQuery y Popper.js son necesarios) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Script para el slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.slider').slick({
+                autoplay: true,
+                autoplaySpeed: 3000,
+                dots: true,
+                arrows: false
+            });
+        });
+    </script>
 </body>
 </html>
