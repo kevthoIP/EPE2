@@ -45,5 +45,6 @@ registroForm.addEventListener('submit', (event) => {
     alert('Usuario registrado correctamente');
   
     registroForm.reset();
+    window.location.href = 'login.html';
 
   });

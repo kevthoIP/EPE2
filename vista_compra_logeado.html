@@ -19,7 +19,7 @@
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#carritoModal">Ver Carrito<span id="carritoCantidad" class="badge badge-pill badge-primary ml-2">0</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Cerrar Sesión</a>
+                <a onclick="cerrarSesion()" class="nav-link" href="#">Cerrar Sesión</a>
             </li>
         </ul>
     </nav>
@@ -33,7 +33,7 @@
             <!-- Modelo 1 -->
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="vehiculo1.jpg" class="card-img-top" alt="Vehículo 1">
+                    <img src="img/auto1.jpg" class="card-img-top" alt="Vehículo 1">
                     <div class="card-body">
                         <h5 class="card-title">Modelo 1</h5>
                         <p class="card-text">Precio: $20,000</p>
@@ -45,7 +45,7 @@
             <!-- Modelo 2 -->
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="vehiculo2.jpg" class="card-img-top" alt="Vehículo 2">
+                    <img src="img/auto2.jpg" class="card-img-top" alt="Vehículo 2">
                     <div class="card-body">
                         <h5 class="card-title">Modelo 2</h5>
                         <p class="card-text">Precio: $25,000</p>
@@ -57,7 +57,7 @@
             <!-- Modelo 3 -->
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="vehiculo3.jpg" class="card-img-top" alt="Vehículo 3">
+                    <img src="img/auto3.jpg" class="card-img-top" alt="Vehículo 3">
                     <div class="card-body">
                         <h5 class="card-title">Modelo 3</h5>
                         <p class="card-text">Precio: $30,000</p>
@@ -69,7 +69,7 @@
             <!-- Modelo 4 -->
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="vehiculo4.jpg" class="card-img-top" alt="Vehículo 4">
+                    <img src="img/auto4.jpg" class="card-img-top" alt="Vehículo 4">
                     <div class="card-body">
                         <h5 class="card-title">Modelo 4</h5>
                         <p class="card-text">Precio: $22,000</p>
@@ -81,7 +81,7 @@
             <!-- Modelo 5 -->
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="vehiculo5.jpg" class="card-img-top" alt="Vehículo 5">
+                    <img src="img/auto5.jpg" class="card-img-top" alt="Vehículo 5">
                     <div class="card-body">
                         <h5 class="card-title">Modelo 5</h5>
                         <p class="card-text">Precio: $28,000</p>
@@ -167,6 +167,14 @@
         var carro = [];
         var total = 0;
         var historial = [];
+
+        function cerrarSesion() {
+        // Eliminar los datos de sesión almacenados en el local storage
+        localStorage.removeItem('usuario');
+
+        // Redirigir al usuario a la página de inicio de sesión
+        window.location.href = 'login.html';
+        }
 
         function agregarAlCarro(modelo, precio) {
             carro.push({ modelo: modelo, precio: precio });
